@@ -44,11 +44,11 @@ I've tried to leave all role-variables as much default as possible.
 
 
 ## Currently used roles in this repository:
-  ajsalminen.apt_source
-  ANXS.mysql
-  geerlingguy.git
-  geerlingguy.composer
-  geerlingguy.php
+  *ajsalminen.apt_source
+  *ANXS.mysql
+  *geerlingguy.git
+  *geerlingguy.composer
+  *geerlingguy.php
 
 ## Other github repositories mentioned/used in this repository:
-  https://github.com/laravel/laravel - Laravel PHP-framework.
+  *https://github.com/laravel/laravel - Laravel PHP-framework.
