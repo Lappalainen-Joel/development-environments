@@ -1,4 +1,4 @@
-# Vagrant virtual machines as for development and testing environments.
+# Vagrant virtual machines for development and testing environments.
 
 ## Machines:
   debian-dev01 - apache, mysql, php
