@@ -17,7 +17,9 @@ I've tried to leave all role-variables as much default as possible.
 - To keep developing simple, virtual machines' /srv/sites -folder is shared
   to this git directory's folder shared_folders. This requires guest-additions
   for virtual machine. debian/jessie64 -box does not have this by default,
-  and need to be installed for shared folder to work.
+  and need to be installed for shared folder to work. (Easiest way to get over this
+  is just downloading debian/jessie64 -box, installing guest-additions and repackage
+  box.)
 
   Installation guide:
   https://www.vagrantup.com/docs/virtualbox/boxes.html#virtualbox-guest-additions
@@ -25,8 +27,12 @@ I've tried to leave all role-variables as much default as possible.
 ### debian-dev01:
   Set-up development environment for Laravel, or Set-up developing/testing
   machine for existing PHP-project.
-  
-# Variables to begin with:
+
+### Requirements
+* Ansible => 2.x
+* Vagrant => 1.9.3
+
+### Variables to begin with:
 ```
   project_laravel_template: True
   project_database_in_use: True
