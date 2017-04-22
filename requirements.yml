@@ -1,0 +1,31 @@
+---
+#
+#	Keep track of roles used within these playbooks.
+#
+# To install these, run command:
+# $ ansible-galaxy -r install requirements.yml
+#
+#
+#	Author: Joel Lappalainen
+#
+
+
+- src: https://github.com/ajsalminen/ansible-role-apt_source
+  name: ajsalminen.apt_source
+  version: master
+
+- src: https://github.com/ANXS/mysql.git
+  name: ANXS.mysql
+  version: master
+
+- src: https://github.com/geerlingguy/ansible-role-git.git
+  name: geerlingguy.git
+  version: master
+
+- src: https://github.com/geerlingguy/ansible-role-php.git
+  name: geerlingguy.php
+  version: master
+
+- src: https://github.com/geerlingguy/ansible-role-composer.git
+  name: geerlingguy.composer
+  version: master

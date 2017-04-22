@@ -1,0 +1,58 @@
+---
+- hosts: debian-dev01
+  roles:
+    - role: ajsalminen.apt_source
+    - role: geerlingguy.php
+    - role: geerlingguy.composer
+    - role: ANXS.mysql
+
+  tasks:
+    - name: Install apache2.
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ apache_packages }}"
+      tags: apache2
+
+    - name: Replace 000.default.conf.
+      template:
+        src: "{{ project_local_folder_path }}/000-default.j2"
+        dest: /etc/apache2/sites-available/000-default.conf
+        owner: "{{ apache_user }}"
+        group: "{{ apache_user }}"
+      tags: apache2
+
+    - name: Checkout project from git.
+      git:
+        repo: "{{ project_git_url }}"
+        version: "{{ project_git_version }}"
+        dest: "{{ project_git_destination }}"
+
+    - name: Install dependensies with composer.
+      shell: composer install
+      args:
+        chdir: "{{ project_git_destination }}"
+
+    - name: Copy .env.example as .env.
+      shell: "cp .env.example .env"
+      args:
+        chdir: "{{ project_git_destination }}"
+      when: project_laravel_template == True
+
+    - name: Run artisan commands.
+      shell: "php artisan key:generate && php artisan config:clear"
+      args:
+        chdir: "{{ project_git_destination }}"
+      when: project_laravel_template == True
+
+    - name: Set ownership to whoever is running apache.
+      file:
+        path: "{{ project_git_destination }}"
+        owner: "{{ apache_user }}"
+        group: "{{ apache_user }}"
+        recurse:  yes
+
+    - name: Restart apache.
+      service:
+        name: apache2
+        state: restarted

@@ -1,0 +1,6 @@
+
+[debian-dev-servers:children]
+debian-dev01
+
+[debian-dev01]
+debian.dev01 ansible_ssh_user=root ansible_host=192.168.33.10

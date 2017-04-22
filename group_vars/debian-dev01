@@ -1,0 +1,157 @@
+# Group_vars file for debian_dev01
+
+### Project Configurations ###
+# Set false, if you are deploying existing project.
+# Even if done w/ laravel.
+project_laravel_template: True
+project_database_in_use: True
+project_database_use_dump: False
+project_git_url: https://github.com/laravel/laravel.git
+project_git_destination: /srv/sites/laravel
+project_git_version: master
+project_local_folder_path: files/debian.dev01
+project_database_name: projectX
+project_database_dump_file: "{{ project_local_folder_path }}/mysql_dump.sql"
+
+apt_source_config:
+  - source: deb http://packages.dotdeb.org jessie all
+    packages:
+      - pattern: php*
+    key:
+      url: https://www.dotdeb.org/dotdeb.gpg
+      id: 89DF5277
+
+### APACHE2 configurations ###
+apache_document_root: "{{ project_git_destination }}/public/"
+apache_http_port: 80
+apache_user: www-data
+apache_packages:
+  - apache2
+  - libapache2-mod-php7.0
+
+### PHP configurations ###
+# PHP-FPM configuration.
+php_enable_php_fpm: false
+php_fpm_listen: "127.0.0.1:9000"
+php_fpm_listen_allowed_clients: "127.0.0.1"
+php_fpm_pm_max_children: 50
+php_fpm_pm_start_servers: 5
+php_fpm_pm_min_spare_servers: 5
+php_fpm_pm_max_spare_servers: 5
+
+# OpCache settings (useful for PHP >=5.5).
+php_opcache_zend_extension: "opcache.so"
+php_opcache_enable: "1"
+php_opcache_enable_cli: "0"
+php_opcache_memory_consumption: "96"
+php_opcache_interned_strings_buffer: "16"
+php_opcache_max_accelerated_files: "4096"
+php_opcache_max_wasted_percentage: "5"
+php_opcache_validate_timestamps: "1"
+php_opcache_revalidate_path: "0"
+php_opcache_revalidate_freq: "2"
+php_opcache_max_file_size: "0"
+php_opcache_blacklist_filename: ""
+
+# APCu settings.
+php_enable_apc: false
+php_apc_shm_size: "96M"
+php_apc_enable_cli: "0"
+
+
+php_expose_php: "On"
+php_memory_limit: "256M"
+php_max_execution_time: "60"
+php_max_input_time: "60"
+php_max_input_vars: "1000"
+php_realpath_cache_size: "32K"
+
+php_file_uploads: "On"
+php_upload_max_filesize: "64M"
+php_max_file_uploads: "20"
+
+php_post_max_size: "32M"
+php_date_timezone: "America/Chicago"
+php_allow_url_fopen: "On"
+
+php_sendmail_path: "/usr/sbin/sendmail -t -i"
+php_output_buffering: "4096"
+php_short_open_tag: "Off"
+php_disable_functions: []
+
+php_session_cookie_lifetime: 0
+php_session_gc_probability: 1
+php_session_gc_divisor: 1000
+php_session_gc_maxlifetime: 1440
+php_session_save_handler: files
+php_session_save_path: ''
+
+php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+php_display_errors: "Off"
+php_display_startup_errors: "Off"
+
+php_packages:
+  - php7.0-common
+  - php7.0-cli
+  - php7.0-dev
+  - php7.0-fpm
+  - libpcre3-dev
+  - php7.0-gd
+  - php7.0-curl
+  - php7.0-imap
+  - php7.0-json
+  - php7.0-opcache
+  - php7.0-xml
+  - php7.0-mbstring
+  - php-sqlite3
+
+
+### mySQL/MariaDB configurations ###
+# Basic settings
+mysql_port: 3306
+mysql_bind_address: "0.0.0.0"
+mysql_default_root_password: ''
+mysql_root_password: 'CHANGEME'
+mysql_language: '/usr/share/mysql/'
+mysql_ppa: ''
+mysql_apt_key: ''
+
+# Fine Tuning
+mysql_key_buffer: '16M'
+mysql_max_allowed_packet: '128M'
+mysql_thread_stack: '192K'
+mysql_cache_size: 8
+mysql_myisam_recover: 'BACKUP'
+mysql_max_connections: 100
+mysql_table_cache: 64
+mysql_thread_concurrency: 10
+mysql_query_cache_limit: '1M'
+mysql_query_cache_size: '16M'
+mysql_character_set_server: 'utf8'
+mysql_collation_server: 'utf8_general_ci'
+mysql_mysqldump_max_allowed_packet: '128M'
+mysql_isamchk_key_buffer: '16M'
+
+# InnoDB tuning
+mysql_innodb_file_per_table: 'innodb_file_per_table'
+mysql_innodb_flush_method: 'fdatasync'
+mysql_innodb_buffer_pool_size: '128M'
+mysql_innodb_flush_log_at_trx_commit: 1
+mysql_innodb_lock_wait_timeout: 50
+mysql_innodb_log_buffer_size: '1M'
+mysql_innodb_log_file_size: '5M'
+
+# Full-Text Search
+mysql_ft_min_word_len: 4
+
+# List of databases to be created
+mysql_databases: []
+
+# List of users to be created
+mysql_users: []
+
+# List of apt packages to install
+mysql_packages:
+  - mysql-server
+  - mysql-client
+  - python-mysqldb

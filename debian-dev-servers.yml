@@ -1,0 +1,4 @@
+---
+- hosts: debian-dev-servers
+  roles:
+    - role: geerlingguy.git
