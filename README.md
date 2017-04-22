@@ -26,7 +26,7 @@ I've tried to leave all role-variables as much default as possible.
 ### debian-dev01:
   Set-up development environment for Laravel, or Set-up developing/testing
   machine for existing PHP-project.
-'''
+```
   project_git_url: https://github/laravel/laravel
   project_git_destination: /srv/sites/
   project_git_version: master
@@ -41,7 +41,7 @@ I've tried to leave all role-variables as much default as possible.
   mysql_port: 3306
   mysql_users: []
   mysql_databases: []
-'''
+```
 
 ## Currently used roles in this repository:
 * ajsalminen.apt_source
