@@ -19,14 +19,8 @@ I've tried to leave all role-variables as much default as possible.
   (Surely we can agree that this is not going to be the case most of the times.)
 
 - To keep developing simple, virtual machines' /srv/sites -folder is shared
-  to this git directory's folder shared_folders. This requires guest-additions
-  for virtual machine. debian/jessie64 -box does not have this by default,
-  and need to be installed for shared folder to work. (Easiest way to get over this
-  is just downloading debian/jessie64 -box, installing guest-additions and repackage
-  box.)
+  to this git directory's folder shared_folders.
 
-  Installation guide:
-  https://www.vagrantup.com/docs/virtualbox/boxes.html#virtualbox-guest-additions
 
 ### debian-dev01:
   Set-up development environment for Laravel, or Set-up developing/testing
@@ -54,7 +48,7 @@ I've tried to leave all role-variables as much default as possible.
   mysql_databases: []
 ```
 
-## How to install:
+## How to setup:
 After cloning repo execute following command in cloned repo's folder:
 ```
  $ ansible-galaxy -r install requirements.yml
@@ -64,6 +58,23 @@ group_vars/debian-dev-servers.yml
 ```
 virtualbox_version: 5.1.18
 ```
+Fire up virtual-machine:
+```
+$ vagrant up <machine_name> # eg. debian-dev01 
+```
+At first, this will return an error about not being able to mount shared folders.
+This is because virtualbox guest-additions are missing from machine. Just
+provision machine with:
+```
+$ vagrant provision
+```
+After this another occurs with message "Now you should run 'vagrant reload <machine_name> --provision'".
+Just follow instructions:
+```
+$ vagrant reload <machine_name> --provision' eg. debian-dev01
+```
+Now everything should be set-up. Try to connect to 192.168.33.10 via browser. If just a blank page comes up
+then just reboot virtual-machine. 
 
 ## Currently used external roles in this repository:
 * ajsalminen.apt_source
