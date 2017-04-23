@@ -1,0 +1,35 @@
+---
+- name: Install Linux kernel headers and basic development tools.
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items: "{{guestadditions_packages}}"
+
+- name: Download guest-additions.
+  get_url:
+    url: http://download.virtualbox.org/virtualbox/{{virtualbox_version}}/VBoxGuestAdditions_{{virtualbox_version}}.iso
+    dest: /tmp/VBoxGuestAdditions_{{virtualbox_version}}.iso
+
+- name: Create directory to mount image.
+  file:
+    path: /mnt/virtualbox
+    state: directory
+    owner: root
+    group: root
+
+- name: Mount image.
+  mount:
+    name: /mnt/virtualbox
+    src: /tmp/VBoxGuestAdditions_{{virtualbox_version}}.iso
+    opts: loop,ro
+    fstype: iso9660
+    state: mounted
+
+#  shell: mount -o loop,ro VBoxGuestAdditions_{{virtualbox_version}}.iso /mnt/virtualbox/
+
+- name: Install guest-additions.
+  shell: sh /mnt/virtualbox/VBoxLinuxAdditions.run
+
+- name: RESTART MACHINE.
+  fail: 
+    msg: Now you should run 'vagrant reload <machine_name> --provision'

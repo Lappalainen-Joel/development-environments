@@ -1,4 +1,17 @@
 ---
 - hosts: debian-dev-servers
+  pre_tasks:
+    - name: Check if Virtualbox guest-additions are installed.
+      command: /sbin/lsmod
+      register: lsmod
+    - name: Get variable for 'uname -r'
+      shell: uname -r
+      register: uname_r
+
   roles:
-    - role: geerlingguy.git
+   - role: debian_vbox_guestadditions
+     when: "'vboxguest' not in lsmod.stdout"
+
+#    - role: geerlingguy.git
+
+

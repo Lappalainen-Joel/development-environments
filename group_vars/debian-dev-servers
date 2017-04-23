@@ -1,0 +1,3 @@
+### Virtualbox guest-additions ###
+virtualbox_install_additions: True
+virtualbox_version: 5.1.18

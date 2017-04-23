@@ -1,0 +1,4 @@
+guestadditions_packages:
+  - linux-headers-{{uname_r.stdout}}
+  - build-essential
+  - dkms
