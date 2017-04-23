@@ -25,8 +25,6 @@
     fstype: iso9660
     state: mounted
 
-#  shell: mount -o loop,ro VBoxGuestAdditions_{{virtualbox_version}}.iso /mnt/virtualbox/
-
 - name: Install guest-additions.
   shell: sh /mnt/virtualbox/VBoxLinuxAdditions.run
 
