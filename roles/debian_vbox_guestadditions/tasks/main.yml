@@ -28,6 +28,14 @@
 - name: Install guest-additions.
   shell: sh /mnt/virtualbox/VBoxLinuxAdditions.run
 
+- name: Un-mount image.
+  mount:
+    name: /mnt/virtualbox
+    src: /tmp/VBoxGuestAdditions_{{virtualbox_version}}.iso
+    opts: loop,ro
+    fstype: iso9660
+    state: absent
+
 - name: RESTART MACHINE.
   fail: 
     msg: Now you should run 'vagrant reload <machine_name> --provision'
