@@ -1,5 +1,9 @@
 # Vagrant virtual machines for development and testing environments.
 
+### Requirements
+* Ansible => 2.x
+* Vagrant => 1.9.3
+
 ## Machines:
   debian-dev01 - apache, mysql, php
 
@@ -28,10 +32,6 @@ I've tried to leave all role-variables as much default as possible.
   Set-up development environment for Laravel, or Set-up developing/testing
   machine for existing PHP-project.
 
-### Requirements
-* Ansible => 2.x
-* Vagrant => 1.9.3
-
 ### Variables to begin with:
 ```
   project_laravel_template: True
@@ -54,7 +54,18 @@ I've tried to leave all role-variables as much default as possible.
   mysql_databases: []
 ```
 
-## Currently used roles in this repository:
+## How to install:
+After cloning repo execute following command in cloned repo's folder:
+```
+ $ ansible-galaxy -r install requirements.yml
+```
+And after that, check your virtualbox version and replace your version number to
+group_vars/debian-dev-servers.yml
+```
+virtualbox_version: 5.1.18
+```
+
+## Currently used external roles in this repository:
 * ajsalminen.apt_source
 * ANXS.mysql
 * geerlingguy.git
